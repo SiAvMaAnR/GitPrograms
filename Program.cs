@@ -10,7 +10,7 @@ namespace GitPrograms
 	{
 		static void Main(string[] args)
 		{
-			Console.WriteLine("Hello Word365_");
+			Console.WriteLine("Hello Word365_365");
 		}
 	}
 }

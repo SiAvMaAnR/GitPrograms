@@ -64,10 +64,10 @@ namespace GitPrograms
 	{
 		static void Main(string[] args)
 		{
-			string Name="Опа";
-			string Surname = "Федоров";
+			string Name="Иван";
+			string Surname = "Самаркин";
 			uint Age = 800;
-			string Gender = "муж";
+			string Gender = "Оптимус Прайм";
 
 			Anketa anketa = new Anketa(Name, Surname, Age, Gender);
 			anketa.Save();

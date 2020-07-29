@@ -13,6 +13,7 @@ namespace GitPrograms
 	{
 		Dictionary<string, object> _Anketa = new Dictionary<string, object>();
 
+		//Функция обработки исключений
 		public void ProcessString(string name,string surname,uint age, string gender)
 		{
 			try
@@ -32,11 +33,11 @@ namespace GitPrograms
 				Environment.Exit(0);
 			}
 		}
+
+		//Конструктор класса, с обработкой исключений и передачей аргументов в словарь
 		public Anketa(in string Name, in string Surname, in uint Age, in string Gender)
 		{
 			ProcessString(Name,Surname,Age,Gender);
-
-
 			_Anketa.Add("Name", Name);
 			_Anketa.Add("Surname", Surname);
 			_Anketa.Add("Age", Age);
@@ -47,10 +48,12 @@ namespace GitPrograms
 		{
 
 		}
+		//Сохранение сериализированных данных в JSON
 		public void Save()
 		{
 			File.WriteAllText("anketa.json", JsonConvert.SerializeObject(_Anketa));
 		}
+		//Чтение/Десериализация/Вывод JSON
 		public void Print_Person()
 		{
 			Dictionary<string, object> _Anketa_ = JsonConvert.DeserializeObject<Dictionary<string, object>>(File.ReadAllText( "anketa.json"));
@@ -62,6 +65,7 @@ namespace GitPrograms
 	};
 	class Program
 	{
+		//Имитация фронта
 		static void Main(string[] args)
 		{
 			string Name="Иван";

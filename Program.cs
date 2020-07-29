@@ -13,17 +13,43 @@ namespace GitPrograms
 	{
 		Dictionary<string, object> _Anketa = new Dictionary<string, object>();
 
-		public Anketa(in string Name,in string Surname,in int Age,in string Gender)
+		public void ProcessString(string name,string surname,uint age, string gender)
 		{
-			_Anketa.Add("Name1", Name);
+			try
+			{
+				if (name == null||surname==null|| gender == null)
+				{
+					throw new ArgumentNullException();
+				}
+				if(age<0||age>200)
+				{
+					throw new ArgumentOutOfRangeException();
+				}
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine("Исключение: {0}", ex);
+				Environment.Exit(0);
+			}
+		}
+		public Anketa(in string Name, in string Surname, in uint Age, in string Gender)
+		{
+			ProcessString(Name,Surname,Age,Gender);
+
+
+			_Anketa.Add("Name", Name);
 			_Anketa.Add("Surname", Surname);
 			_Anketa.Add("Age", Age);
 			_Anketa.Add("Gender", Gender);
 			_Anketa.Add("Data&Time", DateTime.Now);
 		}
+		public Anketa(Dictionary<string, object> _Anketa_)
+		{
+
+		}
 		public void Save()
 		{
-			File.WriteAllText( "anketa.json", JsonConvert.SerializeObject(_Anketa));
+			File.WriteAllText("anketa.json", JsonConvert.SerializeObject(_Anketa));
 		}
 		public void Print_Person()
 		{
@@ -38,12 +64,12 @@ namespace GitPrograms
 	{
 		static void Main(string[] args)
 		{
-			string Name = "Иван";
-			string Surname = "Самаркин";
-			int Age = 10;
-			string Gender = "Оптимус Прайм";
+			string Name="Опа";
+			string Surname = "Федоров";
+			uint Age = 800;
+			string Gender = "муж";
 
-			Anketa anketa = new Anketa(Name,Surname,Age,Gender);
+			Anketa anketa = new Anketa(Name, Surname, Age, Gender);
 			anketa.Save();
 			anketa.Print_Person();
 		}

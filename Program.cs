@@ -73,7 +73,7 @@ namespace GitPrograms
 		//Конструктор класса, с обработкой исключений и передачей аргументов в словарь
 		public Anketa(in string Name, in string Surname, in uint Age, in string Gender)
 		{
-			//Метод вызова исключений
+			//Метод вызова исключений п
 			ProcessString(Name, Surname, Age, Gender);
 			//Метод передачи аргументов в поля класса
 			Data_transfer(Name, Surname, Age, Gender);

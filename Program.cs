@@ -12,53 +12,114 @@ namespace GitPrograms
 {
 	public class Anketa
 	{
-		public string Name { get; private set; }//Имя
-		public string Surname { get; private set; }//Фамилия
-		public uint Age { get; private set; }//Возраст
-		public string Gender { get; private set; }//Пол
-
-		public DateTime dateTime;//Дата
-
-		Dictionary<string, object> _Anketa = new Dictionary<string, object>();//Словарь данных анкеты
-
-
-		//Функция обработки исключений
-		public void ProcessString(string name, string surname, uint age, string gender)
+		private string Name;//Имя
+		public string GetSetName
 		{
-			try
+			get
 			{
-				//Проверка строк на null
-				if (name == null || surname == null || gender == null)
-				{
-					throw new ArgumentNullException();
-				}
-				//Проверка uint возраста на корректность
-				if (age < 0 || age > 200)
-				{
-					throw new ArgumentOutOfRangeException();
-				}
+				return Name;
 			}
-			//При наличии null строк вызов исключения
-			catch (ArgumentNullException)
+			private set
 			{
-				Console.WriteLine("Исключение: Не корректные данные!");
-			}
-			//При наличии не корректного значения вызов исключения
-			catch (ArgumentOutOfRangeException)
-			{
-				Console.WriteLine("Исключение: Не корректный возраст!");
+				try
+				{
+					if (value == null)
+						throw new ArgumentNullException();
+				}
+				catch (ArgumentNullException)
+				{
+					Console.WriteLine("Исключение: Не корректное имя!");
+				}
+				Name = value;
 			}
 		}
 
+
+		private string Surname;//Фамилия
+		public string GetSetSurname
+		{
+			get 
+			{
+				return Surname;
+			}
+			private set 
+			{
+				try
+				{
+					if (value == null)
+						throw new ArgumentNullException();
+				}
+				catch (ArgumentNullException)
+				{
+					Console.WriteLine("Исключение: Не корректная фамилия!");
+				}
+				Surname = value;
+			}
+		}
+
+
+		private uint Age;//Возраст
+		public uint GetSetAge
+		{
+			get
+			{
+				return Age;
+			}
+			private set
+			{
+				try
+				{
+					if (Age < 0 || Age > 200)
+					{
+						throw new ArgumentOutOfRangeException();
+					}
+				}
+				catch (ArgumentOutOfRangeException)
+				{
+					Console.WriteLine("Исключение: Не корректный возраст!");
+				}
+				Age = value;
+			}
+		}
+
+
+		private string Gender;//Пол
+		public string GetSetGender
+		{
+			get
+			{
+				return Gender;
+			}
+			private set
+			{
+				try
+				{
+					if (value == null)
+					{
+						throw new ArgumentNullException();
+					}
+				}
+				catch (ArgumentNullException)
+				{
+					Console.WriteLine("Исключение: Не корректный пол!");
+				}
+				Gender = value;
+			}
+		}
+
+
+		public DateTime dateTime { get; private set; }//Дата
+
+		Dictionary<string, object> _Anketa = new Dictionary<string, object>();//Словарь данных анкеты
 
 		//Передача аргументов в поля класса
 		public void Data_transfer(in string Name, in string Surname, in uint Age, in string Gender)
 		{
 			//Передача аргементов в поля класса, при значении null вывод "none"
-			this.Name = Name??"none";
-			this.Surname = Surname ?? "none";
-			this.Age = Age;
-			this.Gender = Gender ?? "none";
+			GetSetName = Name??"none";
+			GetSetSurname = Surname ?? "none";
+			GetSetAge = Age;
+			GetSetGender = Gender ?? "none";
 			dateTime = DateTime.Now;
 		}
 
@@ -73,8 +134,6 @@ namespace GitPrograms
 		//Конструктор класса, с обработкой исключений и передачей аргументов в словарь
 		public Anketa(in string Name, in string Surname, in uint Age, in string Gender)
 		{
-			//Метод вызова исключений п
-			ProcessString(Name, Surname, Age, Gender);
 			//Метод передачи аргументов в поля класса
 			Data_transfer(Name, Surname, Age, Gender);
 
@@ -117,9 +176,9 @@ namespace GitPrograms
 		//Имитация фронта
 		static void Main(string[] args)
 		{
-			string Name="Иван";
+			string Name= null;
 			string Surname = null;
-			uint Age = 40;
+			uint Age = 400;
 			string Gender = "Оптимус Прайм";
 
 			Anketa anketa = new Anketa(Name, Surname, Age, Gender);

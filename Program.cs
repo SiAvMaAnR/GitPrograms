@@ -69,7 +69,7 @@ namespace GitPrograms
 			{
 				try
 				{
-					if (Age < 0 || Age > 200)
+					if (value < 0 || value > 200)
 					{
 						throw new ArgumentOutOfRangeException();
 					}

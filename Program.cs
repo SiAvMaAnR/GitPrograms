@@ -12,12 +12,33 @@ namespace GitPrograms
 {
 	public class Anketa
 	{
-		public string Name { get; private set; }//Имя
+		public string Name;//Имя
+		public string name
+		{ 
+			get
+			{
+				return name;
+			}
+			set
+			{
+				try
+				{
+					if (value == null)
+						throw new ArgumentNullException();
+				}
+				catch (ArgumentNullException)
+				{
+					Console.WriteLine("Исключение: Не корректное имя!");
+				}
+				Name = value;
+			}
+		}
+
 		public string Surname { get; private set; }//Фамилия
 		public uint Age { get; private set; }//Возраст
 		public string Gender { get; private set; }//Пол
 
-		public DateTime dateTime;//Дата
+		public DateTime dateTime { get; private set; }//Дата
 
 		Dictionary<string, object> _Anketa = new Dictionary<string, object>();//Словарь данных анкеты
 
@@ -71,7 +92,7 @@ namespace GitPrograms
 
 
 		//Конструктор класса, с обработкой исключений и передачей аргументов в словарь
-		public Anketa(in string Name, in string Surname, in uint Age, in string Gender)
+		public Anketa(in string Name, in string Surname, in uint Age, in string Gender, DateTime dateTime=DateTime.Now)
 		{
 			//Метод вызова исключений
 			ProcessString(Name, Surname, Age, Gender);
@@ -89,7 +110,7 @@ namespace GitPrograms
 
 		public Anketa(Dictionary<string, object> _Anketa_)
 		{
-
+			
 		}
 
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -74,7 +75,7 @@ namespace GitPrograms
 			{
 				try
 				{
-					if (value < 0 || value > 200)
+					if (value < 0)
 					{
 						throw new ArgumentOutOfRangeException();
 					}
@@ -112,69 +113,38 @@ namespace GitPrograms
 			}
 		}
 
-
 		public DateTime DateTime { get; private set; }//Дата
 
-		Dictionary<string, object> _Anketa = new Dictionary<string, object>();//Словарь данных анкеты
-
-		//Передача аргументов в поля класса
-		public void DataTransfer(in string Name, in string Surname, in uint Age, in string Gender)
-		{
-			//Передача аргементов в поля класса, при значении null вывод "none"
-			name = Name??"none";
-			surname = Surname ?? "none";
-			age = Age;
-			gender = Gender ?? "none";
-			DateTime = DateTime.Now;
-		}
-
-
-		//Вывод полей класса
-		public void PrintInfo()
-		{
-			Console.WriteLine($"{Name} {Surname} {Age} {Gender} {DateTime}\n");
-		}
 
 
 		//Конструктор класса, с обработкой исключений и передачей аргументов в словарь
 		public Anketa(in string Name, in string Surname, in uint Age, in string Gender)
 		{
-			//Метод передачи аргументов в поля класса
-			DataTransfer(Name, Surname, Age, Gender);
-
-			//Передача в словарь полей класса
-			_Anketa.Add("Name", this.Name);
-			_Anketa.Add("Surname", this.Surname);
-			_Anketa.Add("Age", this.Age);
-			_Anketa.Add("Gender", this.Gender);
-			_Anketa.Add("Data&Time", this.DateTime);
+			name = Name;
+			surname = Surname;
+			age = Age;
+			gender = Gender;
+			DateTime = DateTime.Now;
 		}
 
-
-		public Anketa(Dictionary<string, object> _Anketa_)
+		//Правописание «год», «года» или «лет»
+		private string Year(uint year)
 		{
-
+			uint t1 = year % 10;
+			uint t2 = year % 100;
+			if (t1 == 1 && t2 != 11)
+				return "год";
+			if (t1 >= 2 && t1 <= 4 && (t2 < 10 || t2 >= 20))
+				return "года";
+			else
+				return "лет";
 		}
-
-
-		//Сохранение сериализированных данных в JSON
-		public void Save()
+		//Возврат строки
+		public string AnketaToString()
 		{
-			File.WriteAllText("anketa.json", JsonConvert.SerializeObject(_Anketa));
+			return $"{Name} {Surname} {Age} {Year(Age)} {Gender}";
 		}
 
-
-		//Чтение/Десериализация/Вывод JSON
-		public void PrintDictionary()
-		{
-			//Чтение, Десериализация и Запись JSON файла в словарь
-			Dictionary<string, object> _Anketa_ = JsonConvert.DeserializeObject<Dictionary<string, object>>(File.ReadAllText( "anketa.json"));
-			//Вывод Словаря после записи данных из JSON
-			foreach (var item in _Anketa_)
-			{
-				Console.WriteLine(item.Key + " - " + item.Value);
-			}
-		}
 	};
 	class Program
 	{
@@ -183,12 +153,11 @@ namespace GitPrograms
 		{
 			string Name= "Иван";
 			string Surname = "Самаркин";
-			uint Age = 40;
+			uint Age = 102;
 			string Gender = "Оптимус Прайм";
 
 			Anketa anketa = new Anketa(Name, Surname, Age, Gender);
-			anketa.Save();
-			anketa.PrintDictionary();
+			Console.WriteLine(anketa.AnketaToString());
 		}
 	}
 }

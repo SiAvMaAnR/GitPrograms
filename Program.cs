@@ -134,7 +134,7 @@ namespace GitPrograms
 				return "лет";
 		}
 		//Возврат строки
-		public string ToString()
+		public string DateToString()
 		{
 			return $"{Name} {Surname} {Age} {Year(Age)} {Gender}";
 		}
@@ -151,7 +151,7 @@ namespace GitPrograms
 			string Gender = "Оптимус Прайм";
 
 			Anketa anketa = new Anketa(Name, Surname, Age, Gender);
-			Console.WriteLine(anketa.ToString());
+			Console.WriteLine(anketa.DateToString());
 		}
 	}
 }

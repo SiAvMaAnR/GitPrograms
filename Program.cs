@@ -10,10 +10,15 @@ using Newtonsoft.Json.Linq;
 
 namespace GitPrograms
 {
+	public class AnketsManager
+	{
+
+	}
+
 	public class Anketa
 	{
 		private string Name;//Имя
-		public string GetSetName
+		public string name
 		{
 			get
 			{
@@ -36,7 +41,7 @@ namespace GitPrograms
 
 
 		private string Surname;//Фамилия
-		public string GetSetSurname
+		public string surname
 		{
 			get 
 			{
@@ -59,7 +64,7 @@ namespace GitPrograms
 
 
 		private uint Age;//Возраст
-		public uint GetSetAge
+		public uint age
 		{
 			get
 			{
@@ -84,7 +89,7 @@ namespace GitPrograms
 
 
 		private string Gender;//Пол
-		public string GetSetGender
+		public string gender
 		{
 			get
 			{
@@ -108,26 +113,26 @@ namespace GitPrograms
 		}
 
 
-		public DateTime dateTime { get; private set; }//Дата
+		public DateTime DateTime { get; private set; }//Дата
 
 		Dictionary<string, object> _Anketa = new Dictionary<string, object>();//Словарь данных анкеты
 
 		//Передача аргументов в поля класса
-		public void Data_transfer(in string Name, in string Surname, in uint Age, in string Gender)
+		public void DataTransfer(in string Name, in string Surname, in uint Age, in string Gender)
 		{
 			//Передача аргементов в поля класса, при значении null вывод "none"
-			GetSetName = Name??"none";
-			GetSetSurname = Surname ?? "none";
-			GetSetAge = Age;
-			GetSetGender = Gender ?? "none";
-			dateTime = DateTime.Now;
+			name = Name??"none";
+			surname = Surname ?? "none";
+			age = Age;
+			gender = Gender ?? "none";
+			DateTime = DateTime.Now;
 		}
 
 
 		//Вывод полей класса
-		public void Print_info()
+		public void PrintInfo()
 		{
-			Console.WriteLine($"{Name} {Surname} {Age} {Gender} {dateTime}\n");
+			Console.WriteLine($"{Name} {Surname} {Age} {Gender} {DateTime}\n");
 		}
 
 
@@ -135,14 +140,14 @@ namespace GitPrograms
 		public Anketa(in string Name, in string Surname, in uint Age, in string Gender)
 		{
 			//Метод передачи аргументов в поля класса
-			Data_transfer(Name, Surname, Age, Gender);
+			DataTransfer(Name, Surname, Age, Gender);
 
 			//Передача в словарь полей класса
 			_Anketa.Add("Name", this.Name);
 			_Anketa.Add("Surname", this.Surname);
 			_Anketa.Add("Age", this.Age);
 			_Anketa.Add("Gender", this.Gender);
-			_Anketa.Add("Data&Time", this.dateTime);
+			_Anketa.Add("Data&Time", this.DateTime);
 		}
 
 
@@ -160,7 +165,7 @@ namespace GitPrograms
 
 
 		//Чтение/Десериализация/Вывод JSON
-		public void Print_Person()
+		public void PrintDictionary()
 		{
 			//Чтение, Десериализация и Запись JSON файла в словарь
 			Dictionary<string, object> _Anketa_ = JsonConvert.DeserializeObject<Dictionary<string, object>>(File.ReadAllText( "anketa.json"));
@@ -176,14 +181,14 @@ namespace GitPrograms
 		//Имитация фронта
 		static void Main(string[] args)
 		{
-			string Name= null;
-			string Surname = null;
-			uint Age = 400;
+			string Name= "Иван";
+			string Surname = "Самаркин";
+			uint Age = 40;
 			string Gender = "Оптимус Прайм";
 
 			Anketa anketa = new Anketa(Name, Surname, Age, Gender);
 			anketa.Save();
-			anketa.Print_Person();
+			anketa.PrintDictionary();
 		}
 	}
 }

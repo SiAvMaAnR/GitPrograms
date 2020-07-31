@@ -11,10 +11,6 @@ using Newtonsoft.Json.Linq;
 
 namespace GitPrograms
 {
-	public class AnketsManager
-	{
-
-	}
 
 	public class Anketa
 	{

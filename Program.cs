@@ -6,8 +6,6 @@ using System.Runtime.CompilerServices;
 using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace GitPrograms
 {
@@ -136,7 +134,7 @@ namespace GitPrograms
 				return "лет";
 		}
 		//Возврат строки
-		public string AnketaToString()
+		public string ToString()
 		{
 			return $"{Name} {Surname} {Age} {Year(Age)} {Gender}";
 		}
@@ -153,7 +151,7 @@ namespace GitPrograms
 			string Gender = "Оптимус Прайм";
 
 			Anketa anketa = new Anketa(Name, Surname, Age, Gender);
-			Console.WriteLine(anketa.AnketaToString());
+			Console.WriteLine(anketa.ToString());
 		}
 	}
 }
